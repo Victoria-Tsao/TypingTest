@@ -1,0 +1,183 @@
+:root {
+    --primary-color: #4f46e5;
+    --secondary-color: #818cf8;
+    --success-color: #22c55e;
+    --error-color: #ef4444;
+    --background-color: #f8fafc;
+    --text-color: #1e293b;
+}
+
+/* Canvas背景 */
+#backgroundCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.3;
+    pointer-events: none;
+    display: none; /* 默认隐藏 */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    position: relative;
+}
+
+.container {
+    max-width: 900px !important;
+}
+
+.card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.stats-card {
+    background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+    padding: 1.5rem;
+}
+
+#displayText {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 1rem;
+    min-height: 150px;
+}
+
+#inputText {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    resize: none;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+#inputText:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    outline: none;
+}
+
+.correct {
+    color: var(--success-color);
+    background-color: rgba(34, 197, 94, 0.1);
+    border-radius: 2px;
+}
+
+.incorrect {
+    color: var(--error-color);
+    background-color: rgba(239, 68, 68, 0.1);
+    text-decoration: underline wavy var(--error-color);
+    border-radius: 2px;
+}
+
+.current {
+    background-color: rgba(79, 70, 229, 0.1);
+    border-radius: 2px;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+#timer, #wpm, #accuracy {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.btn {
+    min-width: 120px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.file-upload-container {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    border: 2px dashed #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.file-upload-container:hover {
+    border-color: var(--primary-color);
+}
+
+.progress-bar {
+    height: 4px;
+    background-color: var(--primary-color);
+    width: 0;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+/* 添加响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    #displayText, #inputText {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+    
+    .btn {
+        min-width: 100px;
+        padding: 0.5rem 1rem;
+    }
+} 

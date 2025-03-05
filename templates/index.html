@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Practice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Canvas -->
+    <canvas id="backgroundCanvas"></canvas>
+    
+    <div class="container mt-5">
+        <h1 class="text-center mb-5 animate__animated animate__fadeIn">
+            <i class="fas fa-keyboard me-2"></i>Typing Practice
+        </h1>
+        
+        <!-- File Upload Area -->
+        <div class="file-upload-container mb-4 animate__animated animate__fadeIn">
+            <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted"></i>
+            <input type="file" class="form-control mb-3" id="textFile" accept=".txt">
+            <button class="btn btn-primary" id="uploadBtn">
+                <i class="fas fa-upload me-2"></i>Upload Text File
+            </button>
+            <div class="progress mt-3" style="height: 4px;">
+                <div class="progress-bar" role="progressbar"></div>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+                <div class="card stats-card animate__animated animate__fadeIn">
+                    <div class="card-body text-center">
+                        <p class="stat-label">Time</p>
+                        <p class="card-text" id="timer">0:00</p>
+                        <i class="fas fa-clock text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card stats-card animate__animated animate__fadeIn" style="animation-delay: 0.1s">
+                    <div class="card-body text-center">
+                        <p class="stat-label">WPM</p>
+                        <p class="card-text" id="wpm">0</p>
+                        <i class="fas fa-tachometer-alt text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card stats-card animate__animated animate__fadeIn" style="animation-delay: 0.2s">
+                    <div class="card-body text-center">
+                        <p class="stat-label">Accuracy</p>
+                        <p class="card-text" id="accuracy">0%</p>
+                        <i class="fas fa-bullseye text-muted"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Display Area -->
+        <div class="card mb-4 animate__animated animate__fadeIn" style="animation-delay: 0.3s">
+            <div class="card-body">
+                <p id="displayText" class="mb-0"></p>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="form-group mb-4 animate__animated animate__fadeIn" style="animation-delay: 0.4s">
+            <textarea class="form-control" id="inputText" rows="3" disabled placeholder="Click Start button when ready..."></textarea>
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="text-center animate__animated animate__fadeIn" style="animation-delay: 0.5s">
+            <button class="btn btn-success me-2" id="startBtn">
+                <i class="fas fa-play me-2"></i>Start
+            </button>
+            <button class="btn btn-warning me-2" id="pauseBtn" disabled>
+                <i class="fas fa-pause me-2"></i>Pause
+            </button>
+            <button class="btn btn-danger me-2" id="resetBtn">
+                <i class="fas fa-redo me-2"></i>Reset
+            </button>
+            <button class="btn btn-outline-primary" id="toggleCanvasBtn">
+                <i class="fas fa-paint-brush me-2"></i>Toggle Background
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/canvas.js"></script>
+</body>
+</html>
