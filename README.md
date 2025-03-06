@@ -1,73 +1,66 @@
-# 打字训练程序
+# Typing Test Program
 
-这是一个基于Web的打字训练程序，可以帮助用户提高打字速度和准确性。
+This is a web-based typing training program that helps users improve their typing speed and accuracy.
 
-## 功能特点
+- Support uploading custom text files for typing practice
+- Real-time display of typing speed (WPM) and accuracy
+- Support pause and restart functions
+- Real-time display of typing errors
+- Beautiful user interface and dynamic background effects
+- Display test results and encouraging messages after completion
+- Space visualization function
+- Support punctuation and special characters
+- Responsive design, adaptable to various devices
 
-- 支持上传自定义文本文件进行打字练习
-- 实时显示打字速度（WPM）和准确度
-- 支持暂停和重新开始功能
-- 实时显示打字错误
-- 美观的用户界面和动态背景效果
-- 完成后显示测试结果和鼓励信息
-- 空格可视化功能
-- 支持标点符号和特殊字符
-- 响应式设计，适配各种设备
+## Technology Stack
 
-## 技术栈
+- Front-end: HTML5, CSS3, JavaScript
+- Back-end: Python Flask
+- UI framework: Bootstrap 5
+- Animation: Animate.css
+- Icon: Font Awesome
+- Prompt box: SweetAlert2
 
-- 前端：HTML5, CSS3, JavaScript
-- 后端：Python Flask
-- UI框架：Bootstrap 5
-- 动画：Animate.css
-- 图标：Font Awesome
-- 提示框：SweetAlert2
+## Installation Instructions
 
-## 安装说明
-
-1. 确保已安装 Python 3.6 或更高版本
-2. 克隆或下载此项目到本地
-3. 安装依赖包：
+1. Make sure Python 3.6 or higher is installed
+2. Clone or download this project to your local computer
+3. Install dependent packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-## 使用方法
+## How to use
 
-1. 运行程序：
+1. Run the program：
    ```bash
    python app.py
    ```
 
-2. 在浏览器中打开：
+2. Open in browser：
    ```
    http://localhost:5000
    ```
 
-3. 点击"选择文件"按钮上传文本文件（支持.txt格式）
-4. 点击"上传文本文件"按钮加载文本
-5. 点击"开始"按钮开始打字测试
-6. 可以随时使用"暂停"和"重新开始"按钮控制测试进程
-7. 点击"切换背景"按钮可以开启/关闭动态背景效果
+3. Click the "Select File" button to upload a text file (supports .txt format)
+4. Click the "Upload Text File" button to load the text
+5. Click the "Start" button to start the typing test
+6. You can use the "Pause" and "Restart" buttons to control the test process at any time
+7. Click the "Toggle Background" button to turn on/off the dynamic background effect
 
-## 特色功能
+## Feature
 
-- **实时反馈**：正确和错误的输入会立即以不同颜色显示
-- **空格可视化**：清晰显示空格字符，避免输入错误
-- **动态背景**：可选的粒子动画效果，提供更好的视觉体验
-- **成绩评估**：完成测试后显示详细的统计信息和鼓励信息
-- **进度跟踪**：实时显示打字进度和剩余文本
+- **Real-time feedback**: Correct and incorrect inputs are immediately displayed in different colors
+- **Space visualization**: Clearly display space characters to avoid input errors
+- **Dynamic background**: Optional particle animation effects for a better visual experience
+- **Performance evaluation**: Display detailed statistics and encouraging messages after completing the test
+- **Progress tracking**: Display typing progress and remaining text in real time
 
-## 示例文本
+## Sample text
 
-项目中包含了一个 `sample.txt` 文件，可以用于测试。您也可以创建自己的文本文件进行练习。
+The project includes a `sample.txt` file that you can use for testing. You can also create your own text files to practice.
 
-## 注意事项
+## Precautions
 
-- 上传的文本文件必须是.txt格式
-- 建议使用UTF-8编码的文本文件
-
-
-## 贡献
-
-欢迎提交问题和改进建议！
+- The uploaded text file must be in .txt format
+- It is recommended to use UTF-8 encoded text files
