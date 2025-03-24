@@ -1,403 +1,407 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accurate Typing Practice</title>
-    <style>
-        /* Basic Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        #displayText {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-            min-height: 100px;
-            line-height: 1.5;
-            font-family: monospace;
-            font-size: 16px;
-            white-space: pre-wrap;
-        }
-        
-        #inputText {
-            width: 100%;
-            height: 80px;
-            margin-bottom: 10px;
-            font-size: 16px;
-            font-family: monospace;
-        }
-        
-        .correct {
-            color: green;
-        }
-        
-        .incorrect {
-            color: red;
-            text-decoration: underline;
-        }
-        
-        .current {
-            background-color: #eee;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .stats div {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-            flex: 1;
-            margin: 0 5px;
-        }
-        
-        .progress-bar {
-            height: 4px;
-            background-color: blue;
-            width: 0;
-            transition: width 0.3s;
-        }
-        
-        button {
-            padding: 8px 12px;
-            margin-right: 8px;
-            cursor: pointer;
-        }
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Accurate Typing Practice</title>
+   <style>
+       body {
+           font-family: Arial, sans-serif;
+           margin: 20px;
+       }
 
-        .space-visible {
-            background-color: #f8f8f8;
-            border: 1px dotted #ccc;
-            margin: 0 1px;
-        }
-    </style>
+
+       .container {
+           max-width: 800px;
+           margin: 0 auto;
+       }
+
+
+       #displayText {
+           border: 1px solid #ccc;
+           padding: 10px;
+           margin-bottom: 10px;
+           min-height: 100px;
+           line-height: 1.5;
+           font-family: monospace;
+           font-size: 16px;
+           white-space: pre-wrap;
+       }
+
+
+       #inputText {
+           width: 100%;
+           height: 80px;
+           margin-bottom: 10px;
+           font-size: 16px;
+           font-family: monospace;
+       }
+
+
+       .correct {
+           color: green;
+       }
+
+
+       .incorrect {
+           color: red;
+           text-decoration: underline;
+       }
+
+
+       .current {
+           background-color: #eee;
+       }
+
+
+       .stats {
+           display: flex;
+           justify-content: space-between;
+           margin-bottom: 10px;
+       }
+
+
+       .stats div {
+           border: 1px solid #ccc;
+           padding: 10px;
+           text-align: center;
+           flex: 1;
+           margin: 0 5px;
+       }
+
+
+       .progress-bar {
+           height: 4px;
+           background-color: blue;
+           width: 0;
+           transition: width 0.3s;
+       }
+
+
+       button {
+           padding: 8px 12px;
+           margin-right: 8px;
+           cursor: pointer;
+       }
+
+
+       .space-visible {
+           background-color: #f8f8f8;
+           border: 1px dotted #ccc;
+           margin: 0 1px;
+       }
+   </style>
 </head>
+
+
 <body>
-    <div class="container">
-        <h1>Accurate Typing Practice</h1>
-        
-        <!-- File Upload Section -->
-        <div>
-            <input type="file" id="textFile" accept=".txt">
-            <button id="uploadBtn">Upload Text File</button>
-            <div class="progress-bar"></div>
-        </div>
+   <div class="container">
+       <h1>Accurate Typing Practice</h1>
 
-        <!-- Statistics Section -->
-        <div class="stats">
-            <div>
-                <p>Time</p>
-                <p id="timer">0:00</p>
-            </div>
-            <div>
-                <p>WPM</p>
-                <p id="wpm">0</p>
-            </div>
-            <div>
-                <p>Accuracy</p>
-                <p id="accuracy">0%</p>
-            </div>
-        </div>
 
-        <!-- Text Display Area -->
-        <div id="displayText"></div>
+       <!-- File Upload Section -->
+       <div>
+           <input type="file" id="textFile" accept=".txt">
+           <button id="uploadBtn">Upload Text File</button>
+           <div class="progress-bar"></div>
+       </div>
 
-        <!-- Input Area -->
-        <textarea id="inputText" disabled placeholder="Click the Start button when ready..."></textarea>
 
-        <!-- Control Buttons -->
-        <div>
-            <button id="startBtn">Start</button>
-            <button id="pauseBtn" disabled>Pause</button>
-            <button id="resetBtn">Reset</button>
-        </div>
-    </div>
+       <!-- Statistics Section -->
+       <div class="stats">
+           <div>
+               <p>Time</p>
+               <p id="timer">0:00</p>
+           </div>
+           <div>
+               <p>WPM</p>
+               <p id="wpm">0</p>
+           </div>
+           <div>
+               <p>Accuracy</p>
+               <p id="accuracy">0%</p>
+           </div>
+       </div>
 
-    <script>
-        class TypingTest {
-            constructor() {
-                // DOM Elements
-                this.displayText = document.getElementById('displayText');
-                this.inputText = document.getElementById('inputText');
-                this.timer = document.getElementById('timer');
-                this.wpm = document.getElementById('wpm');
-                this.accuracy = document.getElementById('accuracy');
-                this.startBtn = document.getElementById('startBtn');
-                this.pauseBtn = document.getElementById('pauseBtn');
-                this.resetBtn = document.getElementById('resetBtn');
-                this.uploadBtn = document.getElementById('uploadBtn');
-                this.fileInput = document.getElementById('textFile');
-                this.progressBar = document.querySelector('.progress-bar');
 
-                // State variables
-                this.originalText = '';
-                this.startTime = 0;
-                this.elapsedTime = 0;
-                this.timerInterval = null;
-                this.isPaused = false;
+       <!-- Text Display Area -->
+       <div id="displayText"></div>
 
-                // Bind event handlers
-                this.bindEvents();
-            }
 
-            // Define punctuation characters
-            isPunctuation(char) {
-                return ".,!?;:\"'()[]<>{}".indexOf(char) !== -1;
-            }
+       <!-- Input Area -->
+       <textarea id="inputText" disabled placeholder="Click the Start button when ready..."></textarea>
 
-            // Event handlers
-            bindEvents() {
-                this.uploadBtn.addEventListener('click', () => this.handleFileUpload());
-                this.startBtn.addEventListener('click', () => this.startTest());
-                this.pauseBtn.addEventListener('click', () => this.pauseTest());
-                this.resetBtn.addEventListener('click', () => this.resetTest());
-                this.inputText.addEventListener('input', () => this.checkInput());
-            }
 
-            async handleFileUpload() {
-                const file = this.fileInput.files[0];
-                if (!file) {
-                    alert('Please select a text file');
-                    return;
-                }
+       <!-- Control Buttons -->
+       <div>
+           <button id="startBtn">Start</button>
+           <button id="pauseBtn" disabled>Pause</button>
+           <button id="resetBtn">Reset</button>
+       </div>
+   </div>
 
-                // Show upload progress
-                this.progressBar.style.width = '50%';
-                
-                try {
-                    const text = await this.readFile(file);
-                    
-                    // Split text into paragraphs and select one randomly
-                    const paragraphs = text.split('\n\n').filter(p => p.trim());
-                    if (paragraphs.length === 0) {
-                        alert('The file is empty');
-                        return;
-                    }
-                    
-                    const selectedText = paragraphs[Math.floor(Math.random() * paragraphs.length)];
-                    
-                    // Complete upload
-                    this.progressBar.style.width = '100%';
-                    setTimeout(() => {
-                        this.progressBar.style.width = '0';
-                    }, 500);
-                    
-                    this.originalText = selectedText;
-                    this.displayInitialText();
-                    this.resetTest();
-                    this.startBtn.disabled = false;
-                    alert('File uploaded successfully!');
-                } catch (error) {
-                    alert('Error uploading file: ' + error.message);
-                    console.error('Error:', error);
-                }
-            }
-            
-            readFile(file) {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => resolve(e.target.result);
-                    reader.onerror = (e) => reject(new Error('File reading failed'));
-                    reader.readAsText(file);
-                });
-            }
 
-            displayInitialText() {
-                // Display text with visible space markers to help users
-                let html = '';
-                for (let i = 0; i < this.originalText.length; i++) {
-                    if (this.originalText[i] === ' ') {
-                        html += '<span class="space-visible"> </span>';
-                    } else {
-                        html += this.originalText[i];
-                    }
-                }
-                this.displayText.innerHTML = html;
-            }
+   <script>
+       class TypingTest {
+           constructor() {
+               this.displayText = document.getElementById('displayText');
+               this.inputText = document.getElementById('inputText');
+               this.timer = document.getElementById('timer');
+               this.wpm = document.getElementById('wpm');
+               this.accuracy = document.getElementById('accuracy');
+               this.startBtn = document.getElementById('startBtn');
+               this.pauseBtn = document.getElementById('pauseBtn');
+               this.resetBtn = document.getElementById('resetBtn');
+               this.uploadBtn = document.getElementById('uploadBtn');
+               this.fileInput = document.getElementById('textFile');
+               this.progressBar = document.querySelector('.progress-bar');
 
-            startTest() {
-                if (!this.originalText) {
-                    alert('Please upload a text file first');
-                    return;
-                }
 
-                this.inputText.disabled = false;
-                this.inputText.focus();
-                this.startBtn.disabled = true;
-                this.pauseBtn.disabled = false;
-                
-                if (!this.startTime) {
-                    this.startTime = Date.now() - this.elapsedTime;
-                    alert('Start typing!');
-                }
-                
-                this.isPaused = false;
-                this.updateTimer();
-            }
+               this.originalText = '';
+               this.startTime = 0;
+               this.elapsedTime = 0;
+               this.timerInterval = null;
+               this.isPaused = true;
 
-            pauseTest() {
-                this.isPaused = true;
-                this.inputText.disabled = true;
-                this.startBtn.disabled = false;
-                this.pauseBtn.disabled = true;
-                clearInterval(this.timerInterval);
-                alert('Paused');
-            }
 
-            resetTest() {
-                if (this.originalText && !confirm('Are you sure you want to reset? Current progress will be lost')) {
-                    return;
-                }
-                
-                this.performReset();
-            }
+               this.bindEvents();
+           }
 
-            performReset() {
-                this.isPaused = true;
-                clearInterval(this.timerInterval);
-                this.startTime = 0;
-                this.elapsedTime = 0;
-                this.timer.textContent = '0:00';
-                this.wpm.textContent = '0';
-                this.accuracy.textContent = '0%';
-                this.inputText.value = '';
-                this.inputText.disabled = true;
-                this.startBtn.disabled = false;
-                this.pauseBtn.disabled = true;
-                
-                // Reset display
-                if (this.originalText) {
-                    this.displayInitialText();
-                }
-            }
 
-            updateTimer() {
-                if (this.isPaused) return;
+           bindEvents() {
+               this.uploadBtn.addEventListener('click', () => this.handleFileUpload());
+               this.startBtn.addEventListener('click', () => this.startTest());
+               this.pauseBtn.addEventListener('click', () => this.pauseTest());
+               this.resetBtn.addEventListener('click', () => this.resetTest());
+               this.inputText.addEventListener('input', () => this.checkInput());
+           }
 
-                this.timerInterval = setInterval(() => {
-                    this.elapsedTime = Date.now() - this.startTime;
-                    const seconds = Math.floor(this.elapsedTime / 1000);
-                    const minutes = Math.floor(seconds / 60);
-                    const remainingSeconds = seconds % 60;
-                    this.timer.textContent = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-                    
-                    this.calculateWPM();
-                }, 1000);
-            }
 
-            calculateWPM() {
-                const minutes = this.elapsedTime / (1000 * 60);
-                // Count words (approximately 5 characters = 1 word)
-                const charCount = this.inputText.value.length;
-                
-                let wpmValue;
-                if (minutes <= 0) {
-                    wpmValue = 0;
-                } else {
-                    wpmValue = Math.round((charCount / 5) / minutes);
-                }
-                
-                this.wpm.textContent = wpmValue;
-            }
+           async handleFileUpload() {
+               const file = this.fileInput.files[0];
+               if (!file) {
+                   alert('Please select a text file');
+                   return;
+               }
 
-            // Core function that compares user input against expected text
-            checkInput() {
-                const inputValue = this.inputText.value;
-                let displayHtml = '';
-                let correctCount = 0;
-                
-                // Compare character by character
-                for (let i = 0; i < this.originalText.length; i++) {
-                    const originalChar = this.originalText[i];
-                    
-                    if (i < inputValue.length) {
-                        // User has typed this character
-                        const inputChar = inputValue[i];
-                        
-                        if (inputChar === originalChar) {
-                            // Character is correct
-                            if (originalChar === ' ') {
-                                // Highlight space as correct with visible marker
-                                displayHtml += '<span class="correct space-visible"> </span>';
-                            } else {
-                                displayHtml += `<span class="correct">${originalChar}</span>`;
-                            }
-                            correctCount++;
-                        } else {
-                            // Character is incorrect
-                            if (originalChar === ' ') {
-                                // Highlight space as incorrect with visible marker
-                                displayHtml += '<span class="incorrect space-visible"> </span>';
-                            } else {
-                                displayHtml += `<span class="incorrect">${originalChar}</span>`;
-                            }
-                        }
-                    } else if (i === inputValue.length) {
-                        // Current position (cursor)
-                        if (originalChar === ' ') {
-                            displayHtml += '<span class="current space-visible"> </span>';
-                        } else {
-                            displayHtml += `<span class="current">${originalChar}</span>`;
-                        }
-                    } else {
-                        // Not yet typed
-                        if (originalChar === ' ') {
-                            displayHtml += '<span class="space-visible"> </span>';
-                        } else {
-                            displayHtml += originalChar;
-                        }
-                    }
-                }
-                
-                // Update display
-                this.displayText.innerHTML = displayHtml;
-                
-                // Calculate accuracy
-                const totalChars = Math.min(inputValue.length, this.originalText.length);
-                const accuracyValue = totalChars > 0 ? Math.round((correctCount / totalChars) * 100) : 0;
-                this.accuracy.textContent = `${accuracyValue}%`;
-                
-                // Check if test is complete
-                if (inputValue.length >= this.originalText.length) {
-                    this.testComplete();
-                }
-            }
 
-            testComplete() {
-                this.pauseTest();
-                const finalWpm = this.wpm.textContent;
-                const finalAccuracy = this.accuracy.textContent;
-                
-                alert(`Test completed!\nFinal WPM: ${finalWpm}\nAccuracy: ${finalAccuracy}\n${this.getCompletionMessage(parseInt(finalWpm), parseInt(finalAccuracy))}`);
-            }
+               if (file.size > 2 * 1024 * 1024) {
+                   alert('The file is too large. Please upload a file smaller than 2MB.');
+                   return;
+               }
 
-            getCompletionMessage(wpm, accuracy) {
-                if (wpm >= 60 && accuracy >= 95) {
-                    return 'Amazing! Your typing skills are professional!';
-                } else if (wpm >= 40 && accuracy >= 90) {
-                    return 'Great job! Keep up this level!';
-                } else if (wpm >= 20 && accuracy >= 80) {
-                    return 'Good start! Keep practicing to improve!';
-                } else {
-                    return 'Take it slow, the key is to keep practicing!';
-                }
-            }
-        }
 
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            new TypingTest();
-        });
-    </script>
+               const isTxt = file.name.endsWith('.txt') && (file.type === 'text/plain' || file.type === '');
+               if (!isTxt) {
+                   alert('Only .txt files are allowed');
+                   return;
+               }
+
+
+               this.progressBar.style.width = '50%';
+
+
+               try {
+                   if (paragraphs.length === 0) {
+                       alert('The file is empty');
+                       this.progressBar.style.width = '0';
+                       return;
+                   }
+                   const selectedText = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+                   this.progressBar.style.width = '100%';
+                   setTimeout(() => {
+                       this.progressBar.style.width = '0';
+                   }, 500);
+
+
+                   this.originalText = selectedText;
+                   this.displayInitialText();
+                   this.performReset();
+                   this.startBtn.disabled = false;
+                   alert('File uploaded successfully!');
+               } catch (error) {
+                   alert('Error uploading file: ' + error.message);
+                   console.error('Error:', error);
+               }
+           }
+
+
+           readFile(file) {
+               return new Promise((resolve, reject) => {
+                   const reader = new FileReader();
+                   reader.onload = (e) => resolve(e.target.result);
+                   reader.onerror = (e) => reject(new Error('File reading failed'));
+                   reader.readAsText(file);
+               });
+           }
+
+
+           displayInitialText() {
+               let html = '';
+               for (let i = 0; i < this.originalText.length; i++) {
+                   if (this.originalText[i] === ' ') {
+                       html += '<span class="space-visible"> </span>';
+                   } else {
+                       html += this.originalText[i];
+                   }
+               }
+               this.displayText.innerHTML = html;
+           }
+
+
+           startTest() {
+               if (!this.originalText) {
+                   alert('Please upload a text file first');
+                   return;
+               }
+
+
+               this.inputText.disabled = false;
+               this.inputText.focus();
+               this.startBtn.disabled = true;
+               this.pauseBtn.disabled = false;
+
+
+               if (this.isPaused) {
+                   this.startTime = Date.now() - this.elapsedTime; // 重新校准 startTime
+                   this.isPaused = false;
+                   this.updateTimer();
+               }
+           }
+
+
+           pauseTest() {
+               if (!this.isPaused) {
+                   this.isPaused = true;
+                   this.elapsedTime = Date.now() - this.startTime; // 记录实际用时
+                   this.inputText.disabled = true;
+                   this.startBtn.disabled = false;
+                   this.pauseBtn.disabled = true;
+                   clearInterval(this.timerInterval);
+               }
+           }
+
+
+           resetTest() {
+               if (this.originalText && !confirm('Are you sure you want to reset? Current progress will be lost')) {
+                   return;
+               }
+               this.performReset();
+           }
+
+
+           performReset() {
+               this.isPaused = true;
+               clearInterval(this.timerInterval);
+               this.startTime = 0;
+               this.elapsedTime = 0;
+               this.timer.textContent = '0:00';
+               this.wpm.textContent = '0';
+               this.accuracy.textContent = '0%';
+               this.inputText.value = '';
+               this.inputText.disabled = true;
+               this.startBtn.disabled = false;
+               this.pauseBtn.disabled = true;
+
+
+               if (this.originalText) {
+                   this.displayInitialText();
+               }
+           }
+
+
+           updateTimer() {
+               clearInterval(this.timerInterval);
+               if (this.isPaused) return;
+
+
+               this.timerInterval = setInterval(() => {
+                   const now = Date.now();
+                   const totalElapsed = now - this.startTime;
+
+
+                   const seconds = Math.floor(totalElapsed / 1000);
+                   const minutes = Math.floor(seconds / 60);
+                   const remainingSeconds = seconds % 60;
+                   this.timer.textContent = `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+                   this.calculateWPM(totalElapsed);
+               }, 1000);
+           }
+
+
+           calculateWPM(totalElapsed) {
+               const minutes = totalElapsed / (1000 * 60);
+               const charCount = this.inputText.value.length;
+               const wpmValue = minutes <= 0 ? 0 : Math.round((charCount / 5) / minutes);
+               this.wpm.textContent = wpmValue;
+           }
+
+
+           checkInput() {
+               const inputValue = this.inputText.value;
+               let displayHtml = '';
+               let correctCount = 0;
+
+
+               for (let i = 0; i < this.originalText.length; i++) {
+                   const originalChar = this.originalText[i];
+                   if (i < inputValue.length) {
+                       const inputChar = inputValue[i];
+                       if (inputChar === originalChar) {
+                           displayHtml += originalChar === ' ' ? '<span class="correct space-visible"> </span>' : `<span class="correct">${originalChar}</span>`;
+                           correctCount++;
+                       } else {
+                           displayHtml += originalChar === ' ' ? '<span class="incorrect space-visible"> </span>' : `<span class="incorrect">${originalChar}</span>`;
+                       }
+                   } else if (i === inputValue.length) {
+                       displayHtml += originalChar === ' ' ? '<span class="current space-visible"> </span>' : `<span class="current">${originalChar}</span>`;
+                   } else {
+                       displayHtml += originalChar === ' ' ? '<span class="space-visible"> </span>' : originalChar;
+                   }
+               }
+
+
+               this.displayText.innerHTML = displayHtml;
+               const totalChars = Math.min(inputValue.length, this.originalText.length);
+               const accuracyValue = totalChars > 0 ? Math.round((correctCount / totalChars) * 100) : 0;
+               this.accuracy.textContent = `${accuracyValue}%`;
+
+
+               if (inputValue.length >= this.originalText.length) {
+                   this.testComplete();
+               }
+           }
+
+
+           testComplete() {
+               this.pauseTest();
+               const finalWpm = this.wpm.textContent;
+               const finalAccuracy = this.accuracy.textContent;
+               alert(`Test completed!\nFinal WPM: ${finalWpm}\nAccuracy: ${finalAccuracy}\n${this.getCompletionMessage(parseInt(finalWpm), parseInt(finalAccuracy))}`);
+           }
+
+
+           getCompletionMessage(wpm, accuracy) {
+               if (wpm >= 60 && accuracy >= 95) {
+                   return 'Amazing! Your typing skills are professional!';
+               } else if (wpm >= 40 && accuracy >= 90) {
+                   return 'Great job! Keep up this level!';
+               } else if (wpm >= 20 && accuracy >= 80) {
+                   return 'Good start! Keep practicing to improve!';
+               } else {
+                   return 'Take it slow, the key is to keep practicing!';
+               }
+           }
+       }
+
+
+       document.addEventListener('DOMContentLoaded', () => {
+           new TypingTest();
+       });
+   </script>
 </body>
+
+
 </html>
